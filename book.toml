@@ -1,0 +1,23 @@
+[book]
+title = "Outgrowing Lux"
+description = "From a lux program to software people install: one game, built again in the languages lux was made to be outgrown into."
+authors = ["David Anderson"]
+language = "en"
+src = "src"
+
+[output.html]
+site-url = "/lux/outgrowing/"
+default-theme = "light"
+preferred-dark-theme = "navy"
+no-section-label = false
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.playground]
+editable = false
+copyable = true
+
+[build]
+create-missing = false
