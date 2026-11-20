@@ -441,10 +441,9 @@ the columns played in order, and who should win, and a loop that plays each one
 and complains if the winner is wrong.
 
 > try: in board.go, change `mark` to return `"X"` for Red instead of `"R"`,
-> and run `go test`. The tests that check the board's picture fail, which you'd
-> expect. So do two tests about saving, because the save file in section 3.11
-> writes the board with the same letters. A test you weren't thinking about
-> caught a change you didn't know you'd made. Change it back when you're done.
+> and run `go test`. Read which tests fail and what each one says. Every
+> failure is about what the board looks like on the screen, because that's all
+> you changed. Change it back when you're done.
 
 ## 3.10 The computer
 
@@ -506,7 +505,10 @@ After every move, `save` writes the game to a file. On Linux it's
 
 This format is called JSON, and many programs use it to keep data in a file
 that people can read as well. You can see the board in it, top row first, the
-way the game prints it. When vier-cli starts, it reads this file back, and if
+way the game prints it. The letters look like the screen's, but they're kept
+separately, in memory.go, so a change to how the discs are drawn can't make a
+saved game unreadable. That's the exercise from section 3.9 again: change
+`mark`, and the saving tests still pass. When vier-cli starts, it reads this file back, and if
 there's an unfinished game, it says "Picking up where you left off." The code
 that turns the board into those six lines and back is in memory.go.
 
