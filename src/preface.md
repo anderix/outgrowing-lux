@@ -1,60 +1,53 @@
 # Preface
 
 This book starts where lux leaves you. You can write a program in lux, it runs,
-and it does what you meant. The next question is what it takes to turn that
-program into something other people install and use. The answer runs through
-another language, because lux was built to be outgrown, and through a lot of
-work that isn't about any language at all: deciding what to build next, testing
-what you built, saving what the player was doing, and packaging the program so
-someone can install it with one command.
+and it does what you meant. The next step is reading programs written in the
+languages lux was built to lead to: real programs, written by someone else,
+much bigger than anything you've written yourself.
+
+That sounds harder than it is. A real program is made of the same pieces as
+yours. It has data, functions that change the data, a loop, and a way of
+talking to the person using it. What's different is the spelling, the size, and
+a few ideas lux never needed. If you know what a program does before you open
+it, you can find those pieces in the code, and once you've found them, you
+understand the program, even if there are lines in it you couldn't write
+yourself.
 
 ## The example
 
-The book builds one game the whole way through. Vier is four in a row: two
-players take turns dropping discs into a board seven columns wide and six rows
-tall, and the first to line up four across, down or diagonally wins. Vier
-already exists as an iPhone and Apple Watch app and as a Linux desktop app. This
-book builds a third version, `vier-cli`, which plays in a terminal against a
-friend or against the computer.
+The book follows one game. Vier is four in a row: two players take turns
+dropping discs into a board seven columns wide and six rows tall, and the first
+to line up four across, down or diagonally wins.
 
-Chapter 1 writes the game in lux. Chapter 2 turns it into Go, first with
-`lux convert` and then by hand. The chapters after that grow the Go program one
-piece at a time until it plays against the computer, remembers an unfinished
-game, takes options on the command line, and ships. The program at the end is
-the version people install; its source is at
-[github.com/anderix/vier-cli](https://github.com/anderix/vier-cli).
+Chapter 1 writes Vier in lux, and that program is your map for the rest of the
+book. The chapters after it read three real versions of the same game: vier-cli,
+written in Go, which plays in a terminal; vier-desktop, written in Rust, which
+plays in a window on a computer; and vier-ios, written in Swift, which plays on
+an iPhone and an Apple Watch. All three play against the computer as well as against a friend, and all three
+are programs people use. In each one, you find the pieces you wrote in chapter
+1, learn the one or two new ideas that program depends on, and build it and run
+it yourself.
 
 ## What you need
 
 You need to know lux: structs, enums, `match`, `Option`, arrays and functions.
-If you need a refresher, run `lux learn`. You don't need to know Go yet. The
-book explains each piece of Go the first time the program uses it, and
-[Programming in Go](/go/) covers the language in more depth
-when you want it.
+If you need a refresher, run `lux learn`. You don't need to know Go, Rust or
+Swift. The book explains what you need from each when you get there.
 
-Install lux from [anderix.com/lux](/lux/) and Go from
-[go.dev](https://go.dev/dl/).
+To build the apps you need lux from [anderix.com/lux](/lux/), Go from
+[go.dev](https://go.dev/dl/), and Rust from [rustup.rs](https://rustup.rs). The
+iPhone and Watch app needs a Mac with Xcode. Without one, you can still read
+that part; you just can't run the app.
 
-## Running the code
+## The code
 
-The program at each stage lives under `examples/` in the
-[book's repository](https://github.com/anderix/outgrowing-lux), one folder per
-chapter. Chapter 1's folder holds a lux file:
+Chapter 1's program is in the [book's repository](https://github.com/anderix/outgrowing-lux),
+under `examples/ch01-lux`:
 
 ```text
 cd examples/ch01-lux
 lux run vier.lux
 ```
 
-Every folder after it is a complete Go program with its tests:
-
-```text
-cd examples/ch02-runs
-go run .
-go test
-```
-
-Each folder is the real program at that point in its history, copied from the
-commit that built it. Type your own version alongside if you want to; that is
-the best way to read this. If yours stops working, compare it with the next
-folder.
+The three apps each have their own repository, and each part of the book says
+where to find it.

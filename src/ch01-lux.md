@@ -417,23 +417,30 @@ When Red completes a line of four, the game ends:
 Red wins!
 ```
 
-## 1.6 What this program can't do
+## 1.6 The map
 
 The game works. Two people at one keyboard can play it to the end, and it
-handles every column they can type. But it is a long way from a game someone
-would install.
+handles every column they can type. It's also small enough that you can hold
+all of it in your head, and that's what makes it useful for the rest of this
+book. Every version of Vier has the same pieces, and you've now written each of
+them:
 
-It has no opponent, so you need a second person. It forgets everything when it
-stops: close the terminal halfway through a game and the game is gone. It knows
-no commands, so you can't start over without quitting, and it can't tell you
-what it expects beyond "pick a column". You can't give it options when you start
-it. It has no tests, so the only way to know a change didn't break it is to play
-another game. And the only people who can run it are people who have lux.
+- **The board.** It holds a disc or nothing in each cell, and it can say which.
+- **The rules.** They decide which moves are allowed, where a disc lands, and
+  when the game is won or drawn.
+- **The turn.** It says whose move it is, and it passes to the other player
+  after each one.
+- **The loop.** It asks for a move, makes it, checks for the end, and goes
+  around again.
+- **The display.** It turns the board into something a person can see.
 
-None of that is the game. All of it is what the rest of this book adds, and it
-adds it in Go.
+The real apps you'll read have more than this. They have a computer to play
+against, they remember a game you haven't finished, and two of them draw the
+board in a window instead of in text. But each of them has these five pieces at
+its center, under different names and in a different language. When you open
+one, the first job is to find them.
 
-Before writing any Go, try one more command:
+Before you open any of them, try one more command:
 
 ```text
 lux convert go vier.lux > vier.go
