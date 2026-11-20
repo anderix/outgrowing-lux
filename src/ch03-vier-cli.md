@@ -132,9 +132,9 @@ Three, not two. vier-cli has a player called `Nobody`, and an empty cell holds
 `Nobody`. Chapter 1 turned that idea down, because every function that takes a
 `Player` would have to decide what to do with one who isn't a player. Go makes a
 different trade, because of an idea lux doesn't have: every Go value starts out
-as zero until you give it something else. A number starts at 0, a string starts
-empty, and a board starts with every cell at 0, which is `Nobody`. So this is an
-empty board:
+as zero until you give it something else. Go calls that starting value the
+type's *zero value*. A number's is 0, a string's is empty, and a board's has
+every cell at 0, which is `Nobody`. So this is an empty board:
 
 ```go
 var board Board
@@ -168,8 +168,8 @@ func (b Board) CanDrop(column int) bool {
 ```
 
 This is a *method*: a function that belongs to a type. The board goes in the
-parentheses before the name instead of in the list after it, and you call it
-with the board first:
+parentheses before the name instead of in the list after it, and Go calls it
+the method's *receiver*. You call a method with the receiver first:
 
 ```go
 board.CanDrop(3)
@@ -183,12 +183,12 @@ func canDrop(b: Board, column: int) -> bool
 
 It's the same function as yours, on one line instead of four. Most of the
 functions in vier-cli are methods, and the reading rule is always the same: the
-value before the dot is the first thing passed in.
+receiver, the value before the dot, is the first thing passed in.
 
 Some names start with a capital letter, like `CanDrop`, and some don't, like
-`at`. In a larger Go project, that decides which names other parts of the
-project can use. In a program this size it doesn't change anything, and you can
-read past it.
+`at`. A capitalized name is *exported*, which in a larger Go project means other
+parts of the project can use it. In a program this size it doesn't change
+anything, and you can read past it.
 
 ## 3.5 Changing the original
 
@@ -209,7 +209,8 @@ func (b *Board) Drop(column int, p Player) (int, error) {
 }
 ```
 
-There are two new things here. The first is the star in `*Board`.
+There are two new things here. The first is the star in `*Board`, which makes
+it a *pointer* to a board.
 
 In lux, `dropped` couldn't change your board, because it got a copy. So it
 changed the copy and handed it back, and you kept it:
@@ -218,23 +219,25 @@ changed the copy and handed it back, and you kept it:
 board = dropped(board, turn, column)
 ```
 
-Go can do it that way too, but it has another option. A method whose board has
-a star in front of it gets the board itself, not a copy, and what it changes
-stays changed. So vier-cli drops a disc like this:
+Go can do it that way too, but it has another option. A pointer doesn't hold a
+board of its own. It leads to one that's kept somewhere else: here, the board
+you called the method on. A method whose receiver is a pointer, which Go calls
+a *pointer receiver*, works on that board itself instead of a copy, and what it
+changes stays changed. So vier-cli drops a disc like this:
 
 ```go
 board.Drop(column, player)
 ```
 
 and afterwards, `board` has the new disc in it. Same job, two ways of doing it.
-When you're reading Go, a star in front of a type means "the original, not a
-copy". A method with a star changes the value you call it on. A method without
-one, like `CanDrop`, only looks at it.
+When you're reading Go, read a star in front of a type as "the original, not a
+copy". A method with a pointer receiver changes the value you call it on. A
+method without one, like `CanDrop`, only looks at it.
 
-That's also the star you saw in chapter 2. A starred value reaches one value
-that lives somewhere else, and it can also be `nil`, reaching nothing. The
-converter used that second part for "an `int` that might be missing". vier-cli
-uses the first part, to change the board in place.
+That's also the pointer you saw in chapter 2. A pointer leads to one value kept
+somewhere else, and it can also be `nil`, leading nowhere. The converter used
+that second part for "an `int` that might be missing". vier-cli uses the first
+part, to change the board in place.
 
 ## 3.6 Two answers at once
 
@@ -261,8 +264,8 @@ if _, err := g.Board.Drop(column, g.Turn); err != nil {
 }
 ```
 
-Read `if err != nil` as the `err` arm of a `match`. The `_` means "I don't need
-this value", which here is the row. You'll see `if err != nil` all through Go
+Read `if err != nil` as the `err` arm of a `match`. The `_`, which Go calls the
+*blank identifier*, means "I don't need this value", which here is the row. You'll see `if err != nil` all through Go
 code. It's how Go programs handle a step that can fail, and like `nil` itself,
 nothing makes you write it; Go programmers write it out of habit.
 
@@ -375,8 +378,9 @@ it returns an error instead, and `refusal` turns the error into a sentence like
 
 `fmt.Fprint(s.out, s.game.Board)` prints the board. That works because `Board`
 has a method called `String`, and Go's printing functions look for one on
-anything they're asked to print. `String` in board.go is your `show`, building
-the same lines from the top row down.
+anything they're asked to print. A type with a `String` method is called a
+*Stringer*. `String` in board.go is your `show`, building the same lines from
+the top row down.
 
 `announce` prints the result if the game just ended. `computerTurn` gives the
 computer its move, which section 3.10 opens up. `save` writes the game to a file,
@@ -438,7 +442,9 @@ func TestFourInALineWins(t *testing.T) {
 
 You don't need every detail to read it. It's a list of games, each with a name,
 the columns played in order, and who should win, and a loop that plays each one
-and complains if the winner is wrong.
+and complains if the winner is wrong. `[]int` is a *slice* of `int`s, Go's list
+that can grow, like lux's `[int]`. Without a size in the brackets it's a slice;
+with one, as in the board, it's a fixed-size array.
 
 > try: in board.go, change `mark` to return `"X"` for Red instead of `"R"`,
 > and run `go test`. Read which tests fail and what each one says. Every
@@ -520,9 +526,10 @@ in `Game`, the loop is `Serve`, and the display is `String`. A move travels
 through a handful of functions you can name. The parts you skipped, the search,
 the saving and the options, each do one job, and you know which job.
 
-The Go ideas you needed were few. Methods put the value before the dot. A star
-means the original instead of a copy. Two return values, with `if err != nil`,
-do the job of `Result`. And every value starts at zero. With those and the
+The Go ideas you needed were few. Methods put their receiver before the dot. A
+pointer, written with a star, leads to the original instead of a copy. Two
+return values, with `if err != nil`, do the job of `Result`. And every value
+starts at its zero value. With those and the
 reading table from chapter 2, you can open most small Go programs and find your
 way around.
 

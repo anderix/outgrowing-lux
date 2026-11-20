@@ -20,8 +20,9 @@ go run .
 ```
 
 The first line writes the Go version of the game into `vier.go`. The second sets
-the folder up as a Go project, which Go needs before it will build anything. The
-third builds the program and runs it, and it's the same game:
+the folder up as a Go project, which Go calls a *module* and needs before it
+will build anything. The third builds the program and runs it, and it's the same
+game:
 
 ```text
  . . . . . . .
@@ -133,7 +134,9 @@ they look like.
 
 The first is the enum. Go has no type that is "one of these cases", the way
 `Player` is red or yellow. The converter makes one type for each case and a
-shared name that covers them all:
+shared name that covers them all. Go calls that shared name an *interface*: a
+group of types that all have something in common, which here is the empty
+`isPlayer` each case is given.
 
 ```go
 type Player interface{ isPlayer() }
@@ -157,8 +160,10 @@ enum Player {
 }
 ```
 
-and read `PlayerRed{}` as `Player.red`. Chapter 3 shows a simpler way Go
-programmers usually write a list of cases like this one.
+and read `PlayerRed{}` as `Player.red`. The `switch player.(type)` in
+`opponent` is a *type switch*: it asks which type in the group a value is, and
+that's how this translation spells a `match` on an enum. Chapter 3 shows a
+simpler way Go programmers usually write a list of cases like this one.
 
 The second is `Option`. Go doesn't have it. Instead, some Go values can be
 `nil`, meaning "nothing here", and the converter uses that where lux used
@@ -179,11 +184,14 @@ lose is the reminder. In lux, the type `Option<Player>` told you a cell might be
 empty. Here the type says only `Player`, nothing tells you to check, and a Go
 programmer has to remember.
 
-For an `Option<int>`, the converter writes `*int`, with a star. The star has a
-meaning of its own in Go that this book doesn't need. For reading converted
-code, `*int` means "an `int` that might be missing", and `nil` is the missing
-case. When the converter needs to make one, it calls `ptr(column)`, which you
-can read as `some(column)`.
+For an `Option<int>`, the converter writes `*int`, with a star. That's a
+*pointer* to an `int`. A pointer doesn't hold a value itself; it leads to one
+that's kept somewhere else, and chapter 3 shows what Go programmers usually
+want that for. The converter wants something simpler: a pointer can be `nil`,
+leading nowhere. So in converted code, read `*int` as "an `int` that might be
+missing", with `nil` as the missing case. When the converter needs to make one,
+it calls `ptr(column)`, short for pointer, which you can read as
+`some(column)`.
 
 ## 2.4 What lux brought with it
 
@@ -230,6 +238,8 @@ Here are this chapter's rules in one place:
 | `switch … { case …: }` | `match` and its arms |
 | `nil` | `none` |
 | `if x != nil { … } else { … }` | the `some` and `none` arms |
+| `*int`, a pointer, in converted code | `Option<int>` |
+| `switch x.(type)`, a type switch | `match` on an enum |
 | `func main() { … }` | the lines at the top level of a lux file |
 | `panic("…")` | the program stopping with an error |
 
