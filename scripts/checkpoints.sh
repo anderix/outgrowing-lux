@@ -2,7 +2,7 @@
 # Author: David M. Anderson
 # Built with AI assistance (Claude, Anthropic)
 #
-# Regenerates the Go chapters' examples from the vier-cli commits they show,
+# Regenerates the build-along checkpoints from the vier-cli commits they show,
 # then builds and tests each one.
 
 set -euo pipefail
@@ -27,7 +27,7 @@ left_out=(PLAN.md README.md SECURITY.md LICENSE .gitignore)
 
 for checkpoint in "${checkpoints[@]}"; do
     read -r commit folder <<<"$checkpoint"
-    target=$book/examples/$folder
+    target=$book/examples/slices/$folder
     rm -rf "$target"
     mkdir -p "$target"
     git -C "$source" archive "$commit" | tar -x -C "$target"
