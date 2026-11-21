@@ -7,3 +7,4 @@
 - [vier-cli](ch03-vier-cli.md)
 - [Who Runs the Loop](ch04-host.md)
 - [vier-desktop](ch05-vier-desktop.md)
+- [The Frame](ch06-the-frame.md)
