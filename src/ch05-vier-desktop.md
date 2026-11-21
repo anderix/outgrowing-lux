@@ -37,9 +37,13 @@ the window on the screen. `serde` and `serde_json` save the game to a file.
 vier-cli used only what comes with Go. vier-desktop needs more, because a
 window takes a framework, and neither Rust nor Go comes with one.
 
-vier-desktop is made for Linux. A window opens on a home screen, with a Play
-button and a choice between playing the computer at Easy, Medium or Hard, or a
-second player. Play a game. Notice the things vier-cli couldn't do: the disc
+It runs on Linux, on a Mac and on Windows. A window opens on a home screen,
+with a Play button and a choice between playing the computer at Easy, Medium or
+Hard, or a second player. Play a game:
+
+![vier-desktop, three moves each into a game against the computer](images/vier-desktop.png)
+
+Notice the things vier-cli couldn't do: the disc
 follows your mouse before you click, falls instead of appearing, and the
 computer's disc hovers for a moment before it drops. Each of those takes time
 on the screen, and chapter 4 showed why a program under a host has to keep
