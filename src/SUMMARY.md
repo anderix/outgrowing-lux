@@ -8,3 +8,4 @@
 - [Who Runs the Loop](ch04-host.md)
 - [vier-desktop](ch05-vier-desktop.md)
 - [The Frame](ch06-the-frame.md)
+- [vier-ios](ch07-vier-ios.md)
