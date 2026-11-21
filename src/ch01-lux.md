@@ -436,9 +436,14 @@ them:
 
 The real apps you'll read have more than this. They have a computer to play
 against, they remember a game you haven't finished, and two of them draw the
-board in a window instead of in text. But each of them has these five pieces at
-its center, under different names and in a different language. When you open
-one, the first job is to find them.
+board as a picture, in a window or on a phone, instead of as text. But each of
+them has these five pieces at its center, under different names and in a
+different language. When you open one, the first job is to find them.
+
+You'll find that the first two pieces hardly change from one app to the next.
+A board is cells that hold a disc or nothing, and the rules are the same rules
+in every language. The last three, the turn, the loop and the display, are
+where the apps differ, and why they differ is what this book is about.
 
 Before you open any of them, try one more command:
 

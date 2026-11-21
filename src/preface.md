@@ -23,10 +23,17 @@ Chapter 1 writes Vier in lux, and that program is your map for the rest of the
 book. The chapters after it read three real versions of the same game: vier-cli,
 written in Go, which plays in a terminal; vier-desktop, written in Rust, which
 plays in a window on a computer; and vier-ios, written in Swift, which plays on
-an iPhone and an Apple Watch. All three play against the computer as well as against a friend, and all three
-are programs people use. In each one, you find the pieces you wrote in chapter
-1, learn the one or two new ideas that program depends on, and build it and run
-it yourself.
+an iPhone and an Apple Watch. All three play against the computer as well as
+against a friend, and all three are programs people use. In each one, you find
+the pieces you wrote in chapter 1, learn the few new ideas that program depends
+on, and build it and run it yourself.
+
+Between the terminal and the window, chapter 4 goes back to lux for the
+biggest change in the book. Your lux game and vier-cli run their own loop: ask
+for a move, make it, go around again. A program with a window doesn't. Another
+program runs the loop and calls yours, and that changes how a program waits
+and when it draws. Chapter 4 shows that change in a program you already know,
+so that when you meet it in Rust and Swift, you already know how it works.
 
 ## What you need
 
