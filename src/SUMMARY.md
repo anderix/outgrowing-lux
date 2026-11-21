@@ -9,3 +9,4 @@
 - [vier-desktop](ch05-vier-desktop.md)
 - [The Frame](ch06-the-frame.md)
 - [vier-ios](ch07-vier-ios.md)
+- [The Screen from the Game](ch08-the-screen.md)
