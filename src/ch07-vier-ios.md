@@ -39,7 +39,7 @@ it again. It's the same game on a smaller screen.
 Putting the app on your own iPhone or watch needs your Apple account in Xcode,
 and the README says which setting to change. The simulator needs neither.
 
-> **Don't submit it to the App Store.** Not vier-ios, not a copy with a new
+> **Do NOT submit it to the App Store.** Not vier-ios, not a copy with a new
 > name and new colours, and not any other four-in-a-row game built from this
 > book. Apple's App Review Guideline 4.3 treats copies of an existing app, and
 > apps in a category that's already crowded, as spam, and four in a row is one
